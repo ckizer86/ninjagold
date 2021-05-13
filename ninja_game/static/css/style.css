@@ -1,0 +1,8 @@
+.activities {
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.resetbtn {
+    width: 100%;
+}

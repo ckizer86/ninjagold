@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Gold </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Your Gold -->
+
+    <!-- Farm form earn 10-20 action process_money how much gold to give/take away -->
+
+    <!-- Cave Form earn 5-10 action process_money how much gold to give/take away  -->
+
+    <!-- House Form earn 2-5 action process_money how much gold to give/take away  -->
+
+    <!-- Casino Form earns/takes 0-50 action process_money how much gold to give/take away  -->
+
+    <!-- Activities box -->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Your Gold: {{request.session.gold}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Farm</h5>
+                        <p class="card-text">Earn 10-20 Gold</p>
+                        <form action="/process_money" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="game" value="farm">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cave</h5>
+                        <p class="card-text">Earn 5-10 Gold</p>
+                        <form action="/process_money" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="game" value="cave">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">House</h5>
+                        <p class="card-text">Earn 2-5 Gold</p>
+                        <form action="/process_money" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="game" value="house">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Casino</h5>
+                        <p class="card-text">Earn/Take 0-50 Gold</p>
+                        <form action="/process_money" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="game" value="casino">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        Activities
+                    </div>
+                    <div class="card-body activities">
+                        {% for activity in request.session.activities %}
+                        <p class="card-text">{{activity}} {{date}} {{time}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/reset_activity" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="reset_activity" value="reset_activity">
+                            <input type="submit" class="btn btn-primary resetbtn" value="Reset Activity History">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/reset_gold" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="reset_gold" value="reset_gold">
+                            <input type="submit" class="btn btn-primary resetbtn" value="Reset Gold">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/reset_all" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="reset_all" value="reset_all">
+                            <input type="submit" class="btn btn-primary resetbtn" value="Reset All">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
